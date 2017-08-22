@@ -30,7 +30,7 @@ an optional `start` position argument, which defaults to `0,0` (top left).
     let mg = new MazeGenerator(WIDTH, HEIGHT, [WIDTH-1, 0]);
     let maze = mg.generate();
 
-The `generate` method returns an array of size `width`x`height` [`MazeCell`](src/MazeCell.js]) 
+The `generate` method returns an array of size `width`x`height` [`MazeCell`](src/MazeCell.js) 
 class instances.
 
 
