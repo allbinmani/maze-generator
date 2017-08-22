@@ -2,9 +2,9 @@
   "name": "node-maze-generator",
   "version": "1.0.0",
   "description": "Back-tracking random search maze generator",
-  "main": "index.js",
+  "main": "dist/index.min.js",
   "repository": "git@github.com:allbinmani/maze-generator.git",
-  "author": "allbinmani <mattias.nilsson@allbinary.se>",
+  "author": "allbinmani <allbinmani@github>",
   "scripts": {
     "build": "babel -s -o dist/index.js src/MazeGenerator.js; echo Done"
   },
