@@ -1,5 +1,7 @@
 import MazeCell from './MazeCell';
-import Direction from './directions.js';
+import Directions from './directions.js';
+
+console.log('Directions', Directions);
 
 export default class MazeGenerator {
     constructor(width, height, start = [0, 0]) {
@@ -42,16 +44,17 @@ export default class MazeGenerator {
      */
     getNeighbour(x, y, direction) {
         switch (direction) {
-            case Direction.LEFT:
+            case Directions.LEFT:
                 return x > 0 ? this.getCell(x - 1, y) : null;
-            case Direction.RIGHT:
+            case Directions.RIGHT:
                 return x < this.Width - 1 ? this.getCell(x + 1, y) : null;
-            case Direction.UP:
+            case Directions.UP:
                 return y > 0 ? this.getCell(x, y - 1) : null;
-            case Direction.DOWN:
+            case Directions.DOWN:
                 return y < this.Height - 1 ? this.getCell(x, y + 1) : null;
-            default:
-                throw new Error("No such direction:" + direction);
+            default: 
+                let ds = direction.toString();
+                throw new Error("No such direction:" + ds);
         }
     }
 
@@ -91,14 +94,14 @@ export default class MazeGenerator {
      */
     opposingDir(dir) {
         switch (dir) {
-            case Direction.LEFT:
-                return Direction.RIGHT;
-            case Direction.RIGHT:
-                return Direction.LEFT;
-            case Direction.UP:
-                return Direction.DOWN;
-            case Direction.DOWN:
-                return Direction.UP;
+            case Directions.LEFT:
+                return Directions.RIGHT;
+            case Directions.RIGHT:
+                return Directions.LEFT;
+            case Directions.UP:
+                return Directions.DOWN;
+            case Directions.DOWN:
+                return Directions.UP;
         }
     }
 
@@ -156,7 +159,7 @@ export default class MazeGenerator {
      * @private
      */
     _pickNeighbour(cell) {
-        const allDirs = Direction.ALL;
+        const allDirs = Directions.all;
         let canPick = allDirs
             .map(d => {
                 return {

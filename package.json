@@ -6,7 +6,7 @@
   "repository": "git@github.com:allbinmani/maze-generator.git",
   "author": "allbinmani <allbinmani@github>",
   "scripts": {
-    "build": "babel -s -o dist/index.js src/MazeGenerator.js; echo Done"
+    "build": "webpack"
   },
   "babel": {
     "presets": [
