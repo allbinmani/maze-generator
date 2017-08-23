@@ -4,6 +4,6 @@ let dirs = {
     UP: Symbol("UP"),
     DOWN: Symbol("DOWN")
 };
-dirs.all = Object.keys(dirs);
+dirs.all = Object.values(dirs);
 
-export default dirs;
+export default Object.freeze(dirs);

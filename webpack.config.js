@@ -5,8 +5,11 @@ const minifyOpts = {};
 const pluginOpts = {};
 
 module.exports = {
-    entry: './src/MazeGenerator.js',
+    entry: './src/index.js',
     output: {
+        library: 'NodeMazeGenerator',
+        libraryTarget: 'umd',
+        umdNamedDefine: true,
         path: path.resolve(__dirname, './dist'),
         filename: 'index.min.js',
     },
