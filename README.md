@@ -11,7 +11,7 @@ Generate unique, abstract, mazes of any rectangular size suitable for games.
 ## Features
 
 - Has a clean ES6 imlementation and simple, abstract API
-- Small package (< 3KB)
+- Small package (< 5KB)
 - Mazes can be compacted as integers, for storage or learning purposes
 - Can be used as a plain script or as a Node/AMD module
 
