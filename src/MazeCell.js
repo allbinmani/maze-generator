@@ -4,7 +4,7 @@ import Direction from './directions.js';
 /** 
  * Class representing a Maze cell
  */
-class MazeCell {
+export default class MazeCell {
 
   constructor(x, y) {
     this._x = x;

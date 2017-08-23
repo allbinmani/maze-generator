@@ -1,1 +1,236 @@
-(function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='',b(b.s=1)})([function(a,b){'use strict';Object.defineProperty(b,'__esModule',{value:!0});var c={LEFT:Symbol('LEFT'),RIGHT:Symbol('RIGHT'),UP:Symbol('UP'),DOWN:Symbol('DOWN')};c.all=Object.keys(c),b.default=c},function(a,b,c){'use strict';function d(a){return a&&a.__esModule?a:{default:a}}function e(a,b){if(!(a instanceof b))throw new TypeError('Cannot call a class as a function')}var f=function(){function a(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,'value'in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}return function(b,c,d){return c&&a(b.prototype,c),d&&a(b,d),b}}(),g=c(2),h=d(g),i=c(0),j=d(i),k=function(){function a(b,c){var d=2<arguments.length&&void 0!==arguments[2]?arguments[2]:[0,0];e(this,a),this._width=b,this._height=c,this._maze=[],this._stack=[],this._start=d}return f(a,[{key:'getNeighbour',value:function(a,b,c){switch(c){case j.default.LEFT:return 0<a?this.getCell(a-1,b):null;case j.default.RIGHT:return a<this.Width-1?this.getCell(a+1,b):null;case j.default.UP:return 0<b?this.getCell(a,b-1):null;case j.default.DOWN:return b<this.Height-1?this.getCell(a,b+1):null;default:throw new Error('No such direction:'+c);}}},{key:'getCell',value:function(a,b){if(0>a||0>b||a>this.Width-1||b>this.Height-1)return null;var c=this._maze[b*this.Width+a];return c||(c=new h.default(a,b),this._setCell(a,b,c)),c}},{key:'generate',value:function(){this._stack=[],this._maze=[];var a=this.getCell(this.Start[0],this.Start[1]);return a.Visited=!0,this._gen_next(a),this.Maze}},{key:'opposingDir',value:function(a){return a===j.default.LEFT?j.default.RIGHT:a===j.default.RIGHT?j.default.LEFT:a===j.default.UP?j.default.DOWN:a===j.default.DOWN?j.default.UP:void 0}},{key:'cellDirectionOpen',value:function(a,b){if(!a.HasWall(b)){var c=this.getNeighbour(a.X,a.Y,b);if(null===c)return console.log('no cell neigh',a),!1;var d=this.opposingDir(b);if(c.HasWall(d))throw new Error('Should not be possible');return!0}return!1}},{key:'_gen_next',value:function(a){var b=this._pickNeighbour(a);b?(this._stack.push(a),a.RemoveWall(b.dir),b.neigh.RemoveWall(this.opposingDir(b.dir)),b.neigh.Visited=!0,this._gen_next(b.neigh)):(b=this._stack.pop(),b&&this._gen_next(b))}},{key:'_setCell',value:function(a,b,c){return this._maze[b*this.Width+a]=c,c}},{key:'_pickNeighbour',value:function(a){var b=this,c=j.default.ALL,d=c.map(function(c){return{dir:c,neigh:b.getNeighbour(a.X,a.Y,c)}}).filter(function(a){return null!==a.neigh}).filter(function(a){return!a.neigh.Visited});if(0===d.length)return null;var e=~~(Math.random()*d.length),f=d[e];return f}},{key:'Width',get:function(){return this._width}},{key:'Height',get:function(){return this._height}},{key:'Start',get:function(){return this._start},set:function(a){this._start=[a[0],a[1]]}},{key:'Maze',get:function(){return this._maze}}]),a}()},function(a,b,c){'use strict';function d(a,b){if(!(a instanceof b))throw new TypeError('Cannot call a class as a function')}var e=function(){function a(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,'value'in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}return function(b,c,d){return c&&a(b.prototype,c),d&&a(b,d),b}}(),f=c(0),g=function(a){return a&&a.__esModule?a:{default:a}}(f),h=function(){function a(b,c){d(this,a),this._x=b,this._y=c,this._visited=!1,this._walls={},this.AddWall(g.default.LEFT),this.AddWall(g.default.RIGHT),this.AddWall(g.default.UP),this.AddWall(g.default.DOWN)}return e(a,[{key:'HasWall',value:function(a){return this.Walls[a]}},{key:'AddWall',value:function(a){this.Walls[a]=!0}},{key:'RemoveWall',value:function(a){this.Walls[a]=!1}},{key:'toNumber',value:function(){var a=this,b=g.default.all,c=b.map(function(b){return!0===a.Walls[b]?1:0});return c.reduce(function(b,a){return b<<1|a},this.Visited?0:1)}},{key:'Visited',get:function(){return this._visited},set:function(a){this._visited=a}},{key:'X',get:function(){return this._x}},{key:'Y',get:function(){return this._y}},{key:'Walls',get:function(){return this._walls}}]),a}()}]);
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _MazeCell = require('./MazeCell');
+
+var _MazeCell2 = _interopRequireDefault(_MazeCell);
+
+var _directions = require('./directions.js');
+
+var _directions2 = _interopRequireDefault(_directions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var MazeGenerator = function () {
+    function MazeGenerator(width, height) {
+        var start = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [0, 0];
+
+        _classCallCheck(this, MazeGenerator);
+
+        this._width = width;
+        this._height = height;
+        this._maze = [];
+        this._stack = [];
+        this._start = start;
+    }
+
+    _createClass(MazeGenerator, [{
+        key: 'getNeighbour',
+
+
+        /**
+         * @param x {int} Horizontal position
+         * @param y {int} Vertical position
+         * @param direction {direction} Direction
+         * @return {MazeCell} Neighbouring cell or null
+         * @throws {Error} If an invalid direction is specified
+         */
+        value: function getNeighbour(x, y, direction) {
+            switch (direction) {
+                case _directions2.default.LEFT:
+                    return x > 0 ? this.getCell(x - 1, y) : null;
+                case _directions2.default.RIGHT:
+                    return x < this.Width - 1 ? this.getCell(x + 1, y) : null;
+                case _directions2.default.UP:
+                    return y > 0 ? this.getCell(x, y - 1) : null;
+                case _directions2.default.DOWN:
+                    return y < this.Height - 1 ? this.getCell(x, y + 1) : null;
+                default:
+                    throw new Error("No such direction:" + direction);
+            }
+        }
+
+        /**
+         * @param x {int} Horizontal position
+         * @param y {int} Vertical position
+         * @return {MazeCell} The maze cell located at x,y
+         */
+
+    }, {
+        key: 'getCell',
+        value: function getCell(x, y) {
+            if (x < 0 || y < 0 || x > this.Width - 1 || y > this.Height - 1) {
+                return null;
+            }
+            var cell = this._maze[y * this.Width + x];
+            if (!cell) {
+                cell = new _MazeCell2.default(x, y);
+                this._setCell(x, y, cell);
+            }
+            return cell;
+        }
+
+        /**
+         * Generates the maze, given a seed.
+         * @returns {array} Array of MazeCell instances
+         */
+
+    }, {
+        key: 'generate',
+        value: function generate() {
+            this._stack = [];
+            this._maze = [];
+            var currentCell = this.getCell(this.Start[0], this.Start[1]);
+            currentCell.Visited = true;
+            this._gen_next(currentCell);
+            return this.Maze;
+        }
+
+        /**
+         * Returns the opposing direction for given direction
+         */
+
+    }, {
+        key: 'opposingDir',
+        value: function opposingDir(dir) {
+            switch (dir) {
+                case _directions2.default.LEFT:
+                    return _directions2.default.RIGHT;
+                case _directions2.default.RIGHT:
+                    return _directions2.default.LEFT;
+                case _directions2.default.UP:
+                    return _directions2.default.DOWN;
+                case _directions2.default.DOWN:
+                    return _directions2.default.UP;
+            }
+        }
+
+        /**
+         * Returns true if moving in a certain direction from a cell is possible.
+         * @param cell {MazeCell} The cell
+         * @param dir {direction} Any of DIR_LEFT, DIR_RIGHT, DIR_UP or DIR_DOWN
+         */
+
+    }, {
+        key: 'cellDirectionOpen',
+        value: function cellDirectionOpen(cell, dir) {
+            if (!cell.HasWall(dir)) {
+                var neigh = this.getNeighbour(cell.X, cell.Y, dir);
+                if (neigh === null) {
+                    console.log("no cell neigh", cell);
+                    return false; // "out of bounds"
+                }
+                var odir = this.opposingDir(dir);
+                //console.log('dir,odir',dir,odir);
+                if (neigh.HasWall(odir)) {
+                    throw new Error("Should not be possible");
+                }
+                return true;
+            }
+            return false;
+        }
+
+        /**
+         * @private
+         */
+
+    }, {
+        key: '_gen_next',
+        value: function _gen_next(currentCell) {
+            var picked = this._pickNeighbour(currentCell);
+            if (picked) {
+                this._stack.push(currentCell);
+                currentCell.RemoveWall(picked.dir);
+                picked.neigh.RemoveWall(this.opposingDir(picked.dir));
+                picked.neigh.Visited = true;
+                this._gen_next(picked.neigh);
+            } else {
+                picked = this._stack.pop();
+                if (picked) {
+                    this._gen_next(picked);
+                } // else stack empty == Done!
+            }
+        }
+
+        /**
+         * @private
+         */
+
+    }, {
+        key: '_setCell',
+        value: function _setCell(x, y, cell) {
+            this._maze[y * this.Width + x] = cell;
+            return cell;
+        }
+
+        /**
+         * @private
+         */
+
+    }, {
+        key: '_pickNeighbour',
+        value: function _pickNeighbour(cell) {
+            var _this = this;
+
+            var allDirs = _directions2.default.ALL;
+            var canPick = allDirs.map(function (d) {
+                return {
+                    dir: d,
+                    neigh: _this.getNeighbour(cell.X, cell.Y, d)
+                };
+            }).filter(function (n) {
+                return n.neigh !== null;
+            }).filter(function (n) {
+                return !n.neigh.Visited;
+            });
+
+            if (canPick.length === 0) {
+                return null;
+            }
+            var pickDir = ~~(Math.random() * canPick.length);
+            var picked = canPick[pickDir];
+            return picked;
+        }
+    }, {
+        key: 'Width',
+        get: function get() {
+            return this._width;
+        }
+    }, {
+        key: 'Height',
+        get: function get() {
+            return this._height;
+        }
+    }, {
+        key: 'Start',
+        get: function get() {
+            return this._start;
+        },
+        set: function set(x) {
+            this._start = [x[0], x[1]];
+        }
+
+        /**
+         * @return {array} Array of length Width*Height with MazeCell instances
+         */
+
+    }, {
+        key: 'Maze',
+        get: function get() {
+            return this._maze;
+        }
+    }]);
+
+    return MazeGenerator;
+}();
+
+exports.default = MazeGenerator;
+
+//# sourceMappingURL=index.js.map
