@@ -1,7 +1,7 @@
 import MazeCell from './MazeCell';
 import Direction from './directions.js';
 
-class MazeGenerator {
+export default class MazeGenerator {
     constructor(width, height, start = [0, 0]) {
         this._width = width;
         this._height = height;
